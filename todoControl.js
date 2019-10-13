@@ -1,9 +1,6 @@
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://ben:12300qwe@list-hityf.mongodb.net/test?retryWrites=true&w=majority'
-);
-
 var todoSchema = new mongoose.Schema({
     item: String
 });
@@ -14,6 +11,18 @@ var itemOne = Todo({item: 'flores'}).save(function(err){
     console.log('item saved');
 });
 
+mongoose.connection.on("open", function(ref) {
+  console.log("Connected to mongo server.");
+  
+});
+
+mongoose.connection.on("error", function(err) {
+  console.log("Could not connect to mongo server!");
+  return console.log(err);
+});
+
+mongoose.connect('mongodb+srv://ben:12300qwe@list-hityf.mongodb.net/test?retryWrites=true&w=majority'
+);
 
 /*
 
